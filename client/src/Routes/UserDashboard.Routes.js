@@ -1,12 +1,12 @@
-import { WEB_URL } from '../config'
-// import VolunteerDashboard from '../containers/VolunteerDashboard'
+import { WEB_URL } from '../Config'
+import UserDashboard from '../Containers/UserDashboard'
 
 const UserDashboardRoute = [
     {
         path : WEB_URL.User_Dashboard,
         exact : true,
         isProtected : true,
-        // component : VolunteerDashboard
+        component : UserDashboard
     }
 ]
 

@@ -1,9 +1,11 @@
 import React from "react";
 import Cookies from 'js-cookie'
 import { Route, Redirect } from "react-router-dom";
-import { WEB_URL } from "../../config";
-// import VolunteerDashbaord from '../../containers/VolunteerDashboard'
-// import BloodBankDashboard from '../../containers/BloodBankDashboard'
+import { WEB_URL } from "../../Config";
+
+import AdminDashboard from '../../Containers/AdminDashboard'
+import VendorDashboad from '../../Containers/VendorDashboard'
+import UserDashboard from '../../Containers/UserDashboard'
 
 export default function PrivateRoute(props) {
 
@@ -16,8 +18,9 @@ export default function PrivateRoute(props) {
             {...rest}
             render={(routeProps) => {
                 return isAuth ? (
-                    user === "bloodBank" ? <BloodBankDashboard {...rest} {...routeProps}/> :
-                        <VolunteerDashbaord {...rest} {...routeProps}/>
+                    user === "admin" ? <AdminDashboard {...rest} {...routeProps}/> :
+                        user === "vendor" ? <VendorDashboad {...rest} {...routeProps}/> :
+                            <UserDashboard {...rest} {...routeProps}/>
                 ) : (
                     <Redirect to={WEB_URL.HOME}/>
                 );

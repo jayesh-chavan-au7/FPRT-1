@@ -1,5 +1,5 @@
-import { WEB_URL }from '../config'
-// import VoluteerAuth  from "../containers/VoluteerAuth"
+import { WEB_URL }from '../Config'
+import UserSignup  from "../Components/User/UserSignup"
 
 
 const UserSignupRoute = [
@@ -7,7 +7,7 @@ const UserSignupRoute = [
         path : WEB_URL.User_Signup,
         exact : true,
         isProtected : false,
-        // component : VoluteerAuth
+        component : UserSignup
     }
 ]
 

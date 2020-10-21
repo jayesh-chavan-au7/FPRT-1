@@ -1,12 +1,12 @@
-import { WEB_URL } from '../config'
-// import Home from '../containers/Home'
+import { WEB_URL } from '../Config'
+import Home from '../Containers/Home'
 
 const HomeRoute = [
     {
         path : WEB_URL.Home,
         exact : true,
         isProtected : false,
-        // component : Home
+        component : Home
     }
 ]
 

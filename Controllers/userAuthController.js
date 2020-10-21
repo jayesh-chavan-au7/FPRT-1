@@ -36,6 +36,7 @@ class UserAuthController{
             const user = await findByCredentials( req.body.email, req.body.password )
             const token = await user.genrateAuthToken()
             res.cookie("auth", token, { maxage : 21600000 })
+            res.cookie("logedInAs", user.type, { maxage : 21600000 })
             res.status(200).send(user)
         } catch (error) {
             res.status(200).send("Invalid Credentials !!")

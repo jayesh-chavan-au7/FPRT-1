@@ -1,9 +1,9 @@
 import React from "react";
 import { Switch } from "react-router-dom";
 import _ from "lodash";
-import routes from "./routes";
-import PrivateRoute from "./components/RouteManagment/PrivateRoute";
-import PublicRoute from "./components/RouteManagment/PublicRoute";
+import routes from "./Routes";
+import PrivateRoute from "./Components/RouteManagment/PrivateRoute";
+import PublicRoute from "./Components/RouteManagment/PublicRoute";
 
 function App() {
     return (

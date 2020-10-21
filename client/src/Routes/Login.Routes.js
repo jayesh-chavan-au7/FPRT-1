@@ -1,13 +1,12 @@
-import { WEB_URL } from '../config'
-// import LoginContainer from '../containers/LoginContainer'
-
+import { WEB_URL } from '../Config'
+import UserLogin from '../Components/User/UserLogin'
 
 const LoginRoute = [
     {
         path : WEB_URL.User_Login,
         exact : true,
         isProtected : false,
-        // component : LoginContainer
+        component : UserLogin
     }
 ]
 
