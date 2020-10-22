@@ -72,6 +72,19 @@ class UserAuthController{
             res.status(500).send(error)
         }
     }
+
+    async deleteUser(req,res,next) {
+        try {
+            await UserModel.findByIdAndDelete(
+                req.user._id
+            )
+            res.clearCookie("auth");
+            res.clearCookie("logedInAs");
+            res.status(200).send("done");
+        } catch (error) {
+            res.status(500).send(error)
+        }
+    }
 }
 
 module.exports = new UserAuthController()

@@ -18,12 +18,8 @@ class AdminActionController {
 
     async getAll (req,res,next) {
         try {
-            const { page, type } = req.query;
-            const options = {
-                page : parseInt(page,10),
-                limit : 10
-            }
-            const users = await UserModel.paginate({ type },options)
+            const { type } = req.query;
+            const users = await UserModel.find({ type })
             res.status(200).json(users)
         } catch (error) {
             res.status(500).send(error.message)
@@ -32,12 +28,13 @@ class AdminActionController {
 
     async updateUser(req,res,next){
         try {
-            const user = await UserModel.findByIdAndUpdate(
+            const { type } = req.query;
+            await UserModel.findByIdAndUpdate(
                 req.query._id,
                 req.body,
-                { new : true }
             );
-            res.status(200).send(user)
+            const users = await UserModel.find({ type })
+            res.status(200).json(users)
         } catch (error) {
             res.status(500).send(error)
         }
@@ -45,10 +42,12 @@ class AdminActionController {
 
     async deleteUser(req,res,next) {
         try {
+            const { type } = req.query;
             await UserModel.findByIdAndDelete(
                 req.query._id
             )
-            res.status(200).send("done");
+            const users = await UserModel.find({ type })
+            res.status(200).json(users)
         } catch (error) {
             res.status(500).send(error)
         }
@@ -79,9 +78,9 @@ class AdminActionController {
     async getAllProduct (req,res,next) {
         try {
             const products = await ProductModel.find()
-                .populate("User")
-                .populate("Category")
-                .populate("Brand");
+                .populate("vendor")
+                .populate("category")
+                .populate("brand");
             res.status(200).json(products)
         } catch (error) {
             res.status(500).send(error.message)
@@ -90,12 +89,15 @@ class AdminActionController {
 
     async updateProduct(req,res,next){
         try {
-            const product = await ProductModel.findByIdAndUpdate(
+            await ProductModel.findByIdAndUpdate(
                 req.query._id,
                 req.body,
-                { new : true }
             );
-            res.status(200).send(product)
+            const products = await ProductModel.find()
+                .populate("vendor")
+                .populate("category")
+                .populate("brand");
+            res.status(200).send(products)
         } catch (error) {
             res.status(500).send(error)
         }
@@ -106,7 +108,11 @@ class AdminActionController {
             await ProductModel.findByIdAndDelete(
                 req.query._id
             )
-            res.status(200).send("done");
+            const products = await ProductModel.find()
+                .populate("vendor")
+                .populate("category")
+                .populate("brand");
+            res.status(200).send(products);
         } catch (error) {
             res.status(500).send(error)
         }
