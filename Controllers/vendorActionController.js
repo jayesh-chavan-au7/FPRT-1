@@ -38,12 +38,15 @@ class VendorActionController {
 
     async updateProduct(req,res,next) {
         try {
-            const product = await ProductModel.findByIdAndUpdate(
+            await ProductModel.findByIdAndUpdate(
                 req.query._id,
                 req.body,
-                { new : true }
             );
-            res.status(200).send(product)
+            const products = await ProductModel.find({ vendor : req.user._id })
+                .populate("vendor")
+                .populate("category")
+                .populate("brand");
+            res.status(200).send(products)
         } catch (error) {
             res.status(500).send(error)
         }
@@ -54,7 +57,11 @@ class VendorActionController {
             await ProductModel.findByIdAndDelete(
                 req.query._id
             )
-            res.status(200).send("done");
+            const products = await ProductModel.find({ vendor : req.user._id })
+                .populate("vendor")
+                .populate("category")
+                .populate("brand");
+            res.status(200).send(products)
         } catch (error) {
             res.status(500).send(error)
         }

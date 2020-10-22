@@ -8,7 +8,8 @@ import {
     FETCH_ADMIN_USERS_SUCCEESS,
     FETCH_ADMIN_BRANDS_SUCCEESS,
     FETCH_ADMIN_CATEGORIES_SUCCEESS,
-    FETCH_USERS_PRODUCTS_SUCCESS
+    FETCH_USERS_PRODUCTS_SUCCESS,
+    FETCH_VENDORS_PRODUCTS_SUCCESS
 } from "./UserType";
 
 export const fetchUserRequest = () => {
@@ -62,6 +63,13 @@ export const fetchAdminCategoriesSuccess = (categoiesData) => {
 export const fetchUserProductSuccess = (productsData) => {
     return {
         type: FETCH_USERS_PRODUCTS_SUCCESS,
+        payload: productsData,
+    };
+};
+
+export const fetchVendorProductSuccess = (productsData) => {
+    return {
+        type: FETCH_VENDORS_PRODUCTS_SUCCESS,
         payload: productsData,
     };
 };
@@ -178,6 +186,22 @@ export const getUserProducts = () => {
             .then((responce) => {
                 const productsData = responce.data;
                 dispatch(fetchUserProductSuccess(productsData));
+            })
+            .catch((error) => {
+                const errorMsg = error.meassage;
+                dispatch(fetchUserFailure(errorMsg));
+            });
+    };
+};
+
+export const getVendorProducts = () => {
+    return (dispatch) => {
+        dispatch(fetchUserRequest());
+        httpRequest
+            .get("/vendor/getall-products")
+            .then((responce) => {
+                const productsData = responce.data;
+                dispatch(fetchVendorProductSuccess(productsData));
             })
             .catch((error) => {
                 const errorMsg = error.meassage;
