@@ -6,7 +6,8 @@ import {
     FETCH_ADMIN_VENDOR_SUCCEESS,
     FETCH_ADMIN_USERS_SUCCEESS,
     FETCH_ADMIN_BRANDS_SUCCEESS,
-    FETCH_ADMIN_CATEGORIES_SUCCEESS
+    FETCH_ADMIN_CATEGORIES_SUCCEESS,
+    FETCH_USERS_PRODUCTS_SUCCESS
 } from "./UserType";
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
     adminUsers:[],
     adminBrands:[],
     adminCategories:[],
+    userProducts : [],
     error: "",
 };
 
@@ -62,7 +64,13 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 adminCategories: action.payload,
-            };                
+            };
+        case FETCH_USERS_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                userProducts: action.payload,
+            };              
         case FETCH_USER_FAILURE:
             return {
                 ...state,
